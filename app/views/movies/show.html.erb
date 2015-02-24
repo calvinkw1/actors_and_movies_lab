@@ -6,4 +6,24 @@
 <%= button_to "Delete", movie_path(@movie), :method => :delete %>
 <br><br>
 
-<%= link_to "Back to movies", movies_path %>
+<h3>Actors</h3>
+
+<% @movie_actors.each do |actor| %>
+  <p><li><%= link_to "#{actor.name}", actor_path %></li></p>
+  <%= button_to "Remove", remove_actor_path(@movie, actor), :method => :delete %>
+<% end %>
+
+Add a New Actor: 
+  <%= form_tag add_actor_path do |f|%>
+    <select name="actor_id">
+      <% @actors.each do |actor| %>
+      <option value="<%=actor.id%>"><%=actor.name %></option>
+      <% end %>
+    </select>
+    <input type="submit" value="Add">
+  <% end %>
+
+<p>
+  <%= link_to "Back to movies", movies_path %>
+</p>
+

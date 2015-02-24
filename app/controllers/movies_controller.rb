@@ -1,30 +1,31 @@
 class MoviesController < ApplicationController
+  
   def index
     @movies = Movie.all
-  end
-
-  def create
-    form_data = params.require(:movie).permit(:title, :year)
-    Movie.create form_data
-    redirect_to movies_path
   end
 
   def new
     @movie = Movie.new
   end
 
+  def show
+    @movie = Movie.find(params[:id])
+    @movie_actors = @movie.actors.all
+    @actors = Actor.all - @movie.actors
+  end
+
   def edit
     @movie = Movie.find(params[:id])
   end
 
-  def show
-    @movie = Movie.find(params[:id])
+  def create
+    Movie.create form_params
+    redirect_to movies_path
   end
 
   def update
-    form_data = params.require(:movie).permit(:title, :year)
     movie = Movie.find(params[:id])
-    movie.update_attributes form_data
+    movie.update_attributes form_params
     redirect_to movie_path(movie)
   end
 
@@ -32,5 +33,24 @@ class MoviesController < ApplicationController
     movie = Movie.find(params[:id])
     movie.destroy
     redirect_to movies_path
+  end
+
+  def add_actor
+    movie = Movie.find_by_id(params[:id])
+    actor = Actor.find_by_id(params[:actor_id])
+    movie.actors << actor
+    redirect_to movie_path, notice: "Movie added!"
+  end
+
+  def remove_actor
+    movie = Movie.find_by_id(params[:id])
+    actor = Actor.find_by_id(params[:actor_id])
+    movie.actors.delete(actor)
+    redirect_to movie_path
+  end
+
+  private
+  def form_params
+    params.require(:movie).permit(:title, :year)
   end
 end

@@ -1,0 +1,19 @@
+
+<h1>All Actors</h1>
+
+<% flash.each do |name, msg| -%>
+  <%= content_tag :div, msg, class: name %>
+<% end -%>
+
+<% @actors.each do |actor| %>
+  <p><%= link_to "#{actor.name}", actor %></p>
+<% end %>
+
+<p>
+  <%= link_to "Add New Actor", new_actor_path %>
+</p>
+
+<p>
+  <%= link_to "View All Movies", movies_path %>
+</p>
+
