@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Add New Actor</h1>
 
 <%= form_for @actor do |f| %>
@@ -18,3 +19,11 @@
 <p>
   <%= link_to "Back to Actors", actors_path %>
 </p>
+=======
+<h1>Add an actor</h1>
+
+<%= form_for @actor do |f| %>
+  <%= f.text_field :name, :placeholder => "Name" %>
+  <%= f.submit %>
+<% end %>
+>>>>>>> b6f563e4e6ddbbc2addd3b2b5d4ed2beb35a8b05
